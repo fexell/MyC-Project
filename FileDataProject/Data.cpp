@@ -81,7 +81,6 @@ void Data::Data::AddData() {
 	std::ofstream out_file;
 	out_file.open(file_name, std::ios_base::app);
 
-
 	if (out_file.is_open()) {
 		std::cout << "Enter data to add: ";
 		std::getline(std::cin, input);
@@ -253,6 +252,9 @@ void Data::Data::Search() {
 				std::cout << d << "\n";
 			}
 		}
+	} else {
+		std::cout << std::setw(50) << std::setfill('-') << "\n";
+		std::cerr << "There is no data...\n";
 	}
 
 }
