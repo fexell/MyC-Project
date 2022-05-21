@@ -81,10 +81,11 @@ void Data::Data::AddData() {
 	std::ofstream out_file;
 	out_file.open(file_name, std::ios_base::app);
 
-	std::cout << "Enter data to add: ";
-	std::getline(std::cin, input);
 
 	if (out_file.is_open()) {
+		std::cout << "Enter data to add: ";
+		std::getline(std::cin, input);
+
 		if (dv.size() != 0 && std::regex_search(dv.back(), match, find_number))
 			i = (stoi(match.str(0)) + 1);
 
@@ -110,10 +111,10 @@ void Data::Data::DeleteData() {
 
 	std::string input;
 
-	std::cout << "Enter the number of the entry to delete: ";
-	std::getline(std::cin, input);
-
 	if (dv.size() != 0) {
+		std::cout << "Enter the number of the entry to delete: ";
+		std::getline(std::cin, input);
+
 		if (std::regex_search(input, find_number) && !std::regex_search(input, find_zero)) {
 			int i = stoi(input);
 			dv.erase(dv.begin() + (i - 1));
