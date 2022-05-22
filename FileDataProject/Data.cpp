@@ -196,16 +196,25 @@ void Data::Data::Edit() {
 	if (dv.size() != 0) {
 		std::cout << "Enter the number of the entry to edit: ";
 		std::getline(std::cin, input);
-		if (std::regex_search(input, match, find_number) && !std::regex_search(input, find_zero)) {
-			int n = stoi(input);
-			std::cout << "Enter what entry number \"" << n << "\" will be replaced with: ";
-			std::getline(std::cin, input2);
-			std::cout << dv[(n - 1)] << ", will be replaced with: ";
-			std::replace(dv.begin(), dv.end(), dv[(n - 1)], (std::to_string(n) + ". " + input2));
-			std::cout << dv[(n - 1)] << "\n";
 
-			// Update data.txt file
-			InsertDataIntoFile();
+		if (std::regex_search(input, find_number) && !std::regex_search(input, find_zero)) {
+			int n = stoi(input);
+			auto find_last_number = std::regex_search(dv.back(), match, find_number);
+			int n2 = stoi(match.str(0));
+
+			if (n <= n2) {
+				std::cout << "Enter what entry number \"" << n << "\" will be replaced with: ";
+				std::getline(std::cin, input2);
+				std::cout << dv[(n - 1)] << ", will be replaced with: ";
+				std::replace(dv.begin(), dv.end(), dv[(n - 1)], (std::to_string(n) + ". " + input2));
+				std::cout << dv[(n - 1)] << "\n";
+
+				// Update data.txt file
+				InsertDataIntoFile();
+			} else {
+				std::cout << std::setw(50) << std::setfill('-') << "\n";
+				std::cerr << "Number: " << n << " is out of range...\n";
+			}
 		} else {
 			std::cout << std::setw(50) << std::setfill('-') << "\n";
 			std::cerr << "Input needs to be a number, and cannot be 0...\n";
@@ -227,9 +236,6 @@ void Data::Data::Search() {
 		std::cout << std::setw(50) << std::setfill('-') << "\n";
 
 		std::regex search{ input, std::regex_constants::icase };
-
-		//std::cout << std::setw(50) << std::setfill('-') << "\n";
-		//std::cout << "SEARCH RESULT:" << "\n";
 
 		for (auto& d : dv) {
 			if (std::regex_search(d, search)) {
