@@ -73,41 +73,28 @@ void Data::Data::DisplayData() {
 
 void Data::Data::AddData() {
 
-	std::regex find_number{ "(\\d+)" };
 	std::smatch match;
 
 	int i{ 1 };
 	std::string input;
 
-	std::ofstream out_file;
-	out_file.open(file_name, std::ios_base::app);
+	std::cout << "Enter data to add: ";
+	std::getline(std::cin, input);
 
-	if (out_file.is_open()) {
-		std::cout << "Enter data to add: ";
-		std::getline(std::cin, input);
+	if (dv.size() != 0 && std::regex_search(dv.back(), match, find_number))
+		i = (stoi(match.str(0)) + 1);
 
-		if (dv.size() != 0 && std::regex_search(dv.back(), match, find_number))
-			i = (stoi(match.str(0)) + 1);
+	dv.push_back((std::to_string(i) + ". " + input));
 
-		dv.push_back((std::to_string(i) + ". " + input));
+	std::cout << std::setw(50) << std::setfill('-') << "\n";
+	std::cout << i << ". " << input << ", has been added.\n";
 
-		std::cout << std::setw(50) << std::setfill('-') << "\n";
-		std::cout << i << ". " << input << ", has been added.\n";
-
-		// Update data.txt file
-		InsertDataIntoFile();
-	} else {
-		std::cout << std::setw(50) << std::setfill('-') << "\n";
-		std::cerr << "File couldn't be opened (AddData())...\n";
-	}
-
-	out_file.close();
+	// Update data.txt file
+	InsertDataIntoFile();
 	
 }
 
 void Data::Data::DeleteData() {
-
-	std::smatch match;
 
 	std::string input;
 
@@ -134,10 +121,6 @@ void Data::Data::DeleteData() {
 }
 
 void Data::Data::Count() {
-
-	// fd = find data
-	// Moved to Data.h
-	//std::regex fd{ "(\\d+\.?\\s+?)?(.*)" };
 
 	std::smatch match;
 
@@ -206,7 +189,7 @@ void Data::Data::Swap() {
 
 void Data::Data::Edit() {
 
-	std::smatch match, match2;
+	std::smatch match;
 
 	std::string input, input2;
 
