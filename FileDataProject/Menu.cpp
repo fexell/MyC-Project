@@ -1,3 +1,11 @@
+/*
+*
+* ====================
+* Made by Felix Cervin *
+* ====================
+*
+*/
+
 #include <iostream>
 #include <regex>
 #include <string>
@@ -8,9 +16,6 @@
 #include "Data.h"
 
 Menu::Menu::Menu() {
-
-	HANDLE hConsole;
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	Data::Data data;
 
